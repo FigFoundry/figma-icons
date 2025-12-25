@@ -23,7 +23,7 @@ const Underline: React.FC<IconProps> = ({
     {...props}
   >
     {title && <title>{title}</title>}
-    <path fill="#000" d="M9 6.5a.5.5 0 0 0-1 0V11a4 4 0 0 0 8 0V6.5a.5.5 0 0 0-1 0V11a3 3 0 0 1-6 0zM17.5 18a.5.5 0 0 0 0-1h-11a.5.5 0 0 0 0 1z"/>
+    <path fill="#000" d="M9 6.5a.5.5 0 0 0-1 0V11a4 4 0 0 0 8 0V6.5a.5.5 0 0 0-1 0V11a3 3 0 0 1-6 0zM17.5 18a.5.5 0 1 0 0-1h-11a.5.5 0 0 0 0 1z"/>
   </svg>
 );
 
