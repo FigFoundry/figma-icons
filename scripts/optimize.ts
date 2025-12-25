@@ -57,13 +57,24 @@ async function processFiles() {
   try {
     await ensureDir(OPTIMIZED_DIR);
 
-    const files = await fs.readdir(RAW_DIR);
-    const svgFiles = files.filter(file => file.toLowerCase().endsWith('.svg'));
+    // Recursively get all SVG files
+    async function getSvgFiles(dir: string): Promise<string[]> {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      const files = await Promise.all(entries.map(async (entry) => {
+        const res = path.resolve(dir, entry.name);
+        return entry.isDirectory() ? getSvgFiles(res) : res;
+      }));
+      return Array.prototype.concat(...files)
+        .filter(file => file.toLowerCase().endsWith('.svg'));
+    }
 
-    console.log(`Found ${svgFiles.length} SVG files to optimize`);
+    const allSvgFiles = await getSvgFiles(RAW_DIR);
+    console.log(`Found ${allSvgFiles.length} SVG files to optimize`);
 
-    for (const file of svgFiles) {
-      const filePath = path.join(RAW_DIR, file);
+    for (const filePath of allSvgFiles) {
+      // Get relative path to maintain structure if needed, or just basename
+      // The current logic seems to flatten everything to OPTIMIZED_DIR based on filename
+      const file = path.basename(filePath);
       const content = await fs.readFile(filePath, 'utf8');
 
       const optimizedSvg = await optimizeSvg(content, file);
@@ -73,10 +84,10 @@ async function processFiles() {
       console.log(`✓ Optimized: ${file}`);
     }
 
-    console.log(`\nOptimization complete! ${svgFiles.length} SVGs processed.`);
+    console.log(`\nOptimization complete! ${allSvgFiles.length} SVGs processed.`);
 
     // Generate a manifest file with all available icons
-    const iconNames = svgFiles.map(file => path.basename(file, '.svg'));
+    const iconNames = allSvgFiles.map(file => path.basename(file, '.svg'));
     const manifestPath = path.join(OPTIMIZED_DIR, 'manifest.json');
     await fs.writeFile(
       manifestPath,

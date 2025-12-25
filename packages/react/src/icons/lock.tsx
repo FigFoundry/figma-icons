@@ -23,7 +23,7 @@ const Lock: React.FC<IconProps> = ({
     {...props}
   >
     {title && <title>{title}</title>}
-    <path stroke="#000" d="M9 11.5h6.5a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1z"/>
+    <path stroke="#000" d="M8.5 11.5h7a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1Z"/>
   </svg>
 );
 

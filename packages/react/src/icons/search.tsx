@@ -23,7 +23,7 @@ const Search: React.FC<IconProps> = ({
     {...props}
   >
     {title && <title>{title}</title>}
-    <path fill="#000" fill-rule="evenodd" d="M14.73 15.436a6.5 6.5 0 1 1 .707-.707l4.417 4.418a.5.5 0 0 1-.708.707zM16 10.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" clip-rule="evenodd"/>
+    <path fill="#000" fill-rule="evenodd" d="M14.73 15.436a6.5 6.5 0 1 1 .707-.707l4.417 4.417a.5.5 0 0 1-.708.708zM16 10.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" clip-rule="evenodd"/>
   </svg>
 );
 
